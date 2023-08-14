@@ -188,6 +188,7 @@ for level in list(range(1,4)):
     convert_to_rdf(graph, args.source, level)
 
 graph.bind("lor19", lor19)
+graph.bind("lor", lor21)
 graph.bind("unit", unit)
 graph.bind("geo", geo)
 graph.bind("schema", schema)
