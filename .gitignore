@@ -1,0 +1,10 @@
+data/temp
+data/vocab/units.ttl
+Gemfile.lock
+_site/
+.jekyll-cache/
+.vscode
+_includes/cbds
+venv/
+lib/
+.DS_Store

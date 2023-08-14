@@ -1,0 +1,34 @@
+baseurl: "/lod-berlin-lor-2019" # the subpath of your site, e.g. /blog
+url: "https://berlinonline.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+true_url: "https://berlinonline.github.io" # This duplication is necessary to make relative links work when
+    # running the Jekyll-Site locally, when `url` is replaced with somehting like http://localhost:4000
+
+dataset_url: "/lod-berlin-lor-2019/"
+dataset_breadcrumb: "Datensatz"
+cbd_folder: "cbds/"
+
+exclude:
+    - bin/
+    - data/
+    - conf/
+    - README.md
+    - Makefile
+    - Gemfile
+    - requirements.txt
+plugins:
+    - jekyll-rdf
+
+# Jekyll RDF settings
+jekyll_rdf:
+    path: "data/temp/all.nt"
+    restriction: "SELECT ?resourceUri WHERE { ?resourceUri ?predicate ?object FILTER(STRSTARTS(STR(?resourceUri), 'https://berlinonline.github.io/lod-berlin-lor-2019')) }"
+    default_template: "default"
+    class_template_mappings:
+        "http://rdfs.org/ns/void#Dataset": "dataset"
+        "https://schema.org/Organization": "organization"
+        "https://berlinonline.github.io/lod-sg/ImprintPage": "imprint"
+        "https://schema.org/State": "lor_unit"
+        "https://berlinonline.github.io/lod-berlin-lor/vocab/Bezirk": "lor_unit"
+        "https://berlinonline.github.io/lod-berlin-lor/vocab/Prognoseraum": "lor_unit"
+        "https://berlinonline.github.io/lod-berlin-lor/vocab/Bezirksregion": "lor_unit"
+        "https://berlinonline.github.io/lod-berlin-lor/vocab/Planungsraum": "lor_unit"

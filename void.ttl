@@ -1,0 +1,68 @@
+@prefix dct:  <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix lodsg: <https://berlinonline.github.io/lod-sg/> .
+@prefix lodbo: <https://berlinonline.github.io/lod-berlin-bo/> .
+@prefix lor19: <https://berlinonline.github.io/lod-berlin-lor-2019/> .
+@prefix schema: <https://schema.org/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix datenregister: <https://datenregister.berlin.de/dataset/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+lor19:
+    a void:Dataset ;
+    dct:title "Lebensweltlich Orientierte Räume (LOR) als RDF (LOR Version 01.01.2019)"@de ;
+    dct:title "'Lebensweltlich Orientierte Räume' (LOR) as RDF (LOR version 01.01.2019)"@en ;
+    dct:description """Die lebensweltlich orientierten Räume (LORs) gliedern das Land Berlin
+        in geografische Einheiten auf vier hierarchischen Stufen, beginnend bei den 12 Bezirken,
+        über Prognoseräume, Bezirksregionen, bis hinunter zu den Planungsräumen.
+        Die vorliegende Version ist Stand 01.01.2019, mit 12 Bezirken, 60 Prognoseräumen, 138
+        Bezirksregionen und 448 Planungsräumen.
+        Die LORs bilden die räumliche Grundlage für Planung,
+        Prognose und Beobachtung demografischer und sozialer Entwicklungen in Berlin. Dieser
+        Datensatz bildet die Daten der bestehenden WFS-Dienste als Linked Data bzw. RDF ab."""@de ;
+    dct:description """The 'Lebensweltlich orientierten Räume', or LOR, is a system that divides
+        the city of Berlin into a hierarchy of continuously smaller geographical units. At the top are
+        the 12 Bezirke (burroughs). The Bezirke are divided into Prognoseräume, which are further
+        divided into Bezirksregionen. Finally, at the lowest level are the Planungsräume.
+        This version is from 01.01.2019 and contains the 12 Bezirke, 60 Prognoseräume, 138 Bezirksregionen
+        and 448 Planungsräume.
+        The LORs are the basis for planning, prognosis and monitoring of demographic and social
+        developments in Berlin. This dataset is a conversion of the existing WFS-services to
+        Linked Data, or RDF."""@en ;
+    dct:created "2023-08-14"^^xsd:date ;
+    dct:publisher lodbo:berlinonline ;
+    dct:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
+    foaf:homepage <https://github.com/berlinonline/lod-berlin-lor-2019> ;
+    foaf:page <https://www.berlin.de/sen/sbw/stadtdaten/stadtwissen/sozialraumorientierte-planungsgrundlagen/lebensweltlich-orientierte-raeume/> ;
+    void:dataDump <https://raw.githubusercontent.com/berlinonline/lod-berlin-lor-2019/main/data/target/lors.ttl> ;
+    void:feature <http://www.w3.org/ns/formats/Turtle> ;
+    void:rootResource <https://berlinonline.github.io/lod-berlin-lor-2019/berlin> ;
+    void:exampleResource <https://berlinonline.github.io/lod-berlin-lor-2019/bez_02> ;
+    void:exampleResource <https://berlinonline.github.io/lod-berlin-lor-2019/pgr_0203> ;
+    void:exampleResource <https://berlinonline.github.io/lod-berlin-lor-2019/bzr_020304> ;
+    void:exampleResource <https://berlinonline.github.io/lod-berlin-lor-2019/plr_02030401> ;
+    # void:exampleResource <...> ;
+    prov:wasGeneratedBy lor19:triplification ;
+    dct:hasVersion <https://berlinonline.github.io/lod-berlin-lor/> ;
+.
+
+lor19:triplification
+    a prov:Activity ;
+    rdfs:label "Triplifizierung"@de ;
+    rdfs:comment "Die Konvertierung des Quelldatensatzes nach RDF"@de ;
+    prov:used datenregister:lebensweltlich-orientierte-raume-lor-planungsraume-01-01-2019-wfs-c0054664 ;
+    prov:used datenregister:lebensweltlich-orientierte-raume-lor-bezirksregionen-01-01-2019-wfs-8ef8a354 ;
+    prov:used datenregister:lebensweltlich-orientierte-raume-lor-prognoseraume-01-01-2019-wfs-0620cad3 ;
+    prov:used datenregister:alkis-berlin-gemeinde-wfs-3fbfcbce ;
+.
+
+lor19:impressum
+    a lodsg:ImprintPage ;
+    schema:name "Impressum"@de ;
+    schema:name "Imprint"@en ;
+    schema:about lor19: ;
+.
