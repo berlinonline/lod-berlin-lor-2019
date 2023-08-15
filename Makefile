@@ -1,5 +1,6 @@
 berlinonline_url = https://raw.githubusercontent.com/berlinonline/lod-berlin-bo/main/data/static/berlinonline.ttl
 lod_unit_url = https://raw.githubusercontent.com/berlinonline/lod-berlin-lor/main/data/vocab/units.ttl
+links_url = https://raw.githubusercontent.com/berlinonline/lod-berlin-lor/main/data/target/links19-21.ttl
 wfs_base = https://fbinter.stadt-berlin.de/fb/wfs/data/senstadt/
 bezirke_layer = s_wfs_alkis_bezirk
 bezirke_wfs_url = $(wfs_base)$(bezirke_layer)
@@ -12,6 +13,10 @@ data/temp/berlinonline.ttl: data/temp
 	@echo "downloading $(berlinonline_url)..."
 	@curl -s -o $@ "$(berlinonline_url)"
 
+data/temp/links19-21.ttl: data/temp
+	@echo "downloading $(links_url)..."
+	@curl -s -o $@ "$(links_url)"
+
 data/vocab/units.ttl:
 	@echo "downloading $(lod_unit_url)..."
 	@curl -s -o $@ "$(lod_unit_url)"
@@ -20,7 +25,7 @@ data/vocab/units.ttl:
 # All data should be merged in this file. This should include at least the VOID dataset
 # description and the actual data.
 # The target works by merging all prerequisites 
-data/temp/all.nt: data/temp void.ttl data/temp/berlinonline.ttl data/target/lors.ttl data/vocab/units.ttl
+data/temp/all.nt: data/temp void.ttl data/temp/berlinonline.ttl data/target/lors.ttl data/vocab/units.ttl data/temp/links19-21.ttl
 	@echo "combining $(filter-out $<,$^) to $@ ..."
 	@rdfpipe -o ntriples $(filter-out $<,$^) > $@
 
@@ -61,8 +66,11 @@ data/temp/%.formatted.xml: data/temp/%.xml
 
 # Housekeeping
 
+.PHONY: all
+all: data/temp/all.nt cbds
+
 .PHONY: serve-local
-serve-local: data/temp/all.nt cbds
+serve-local: all
 	@echo "serving local version of static LOD site ..."
 	@bundle exec jekyll serve
 

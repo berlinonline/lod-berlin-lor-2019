@@ -2,7 +2,7 @@ import argparse
 import json
 from pathlib import Path
 from urllib.parse import urljoin
-from rdflib import Graph, Literal, RDF, DCTERMS, URIRef, Namespace, BNode
+from rdflib import Graph, Literal, RDF, DCTERMS, Namespace, BNode
 
 BEZIRKS_MAPPING = {
     '01': "Mitte",
@@ -158,7 +158,6 @@ unit = Namespace("https://berlinonline.github.io/lod-berlin-lor/vocab/")
 berlin = lor19['berlin']
 graph.add( (berlin, RDF.type, schema.State) )
 graph.add( (berlin, schema.name, Literal("Berlin")) )
-graph.add( (berlin, DCTERMS.hasVersion, lor21['berlin']) )
 
 for code, title in BEZIRKS_MAPPING.items():
     bezirks_name = f"bez_{code}"
@@ -182,7 +181,6 @@ for code, title in BEZIRKS_MAPPING.items():
     graph.add( (bezirks_res, geo.hasGeometry, bn) )
     geojson = json.dumps(bez_geometries[code])
     graph.add( (bn, geo.asGeoJSON, Literal(geojson, datatype=geo.geoJSONLiteral))  )
-    graph.add( (bezirks_res, DCTERMS.hasVersion, lor21[bezirks_name]) )
 
 for level in list(range(1,4)):
     convert_to_rdf(graph, args.source, level)
@@ -192,6 +190,7 @@ graph.bind("lor", lor21)
 graph.bind("unit", unit)
 graph.bind("geo", geo)
 graph.bind("schema", schema)
+graph.bind("dct", DCTERMS)
 
 with open(args.output, "w") as output_file:
     output_file.write(graph.serialize(format="turtle"))
